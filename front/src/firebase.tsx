@@ -6,13 +6,12 @@ import { getFirestore } from "firebase/firestore";
 
 // Konfigurasi Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyBxidARnn6O3ixtAxmfWGL1jhtnYOTJOA0",
-  authDomain: "skinalyzer-44ff5.firebaseapp.com",
-  projectId: "skinalyzer-44ff5",
-  storageBucket: "skinalyzer-44ff5.appspot.com",
-  messagingSenderId: "499753145724",
-  appId: "1:499753145724:web:da6c77b0d9b5638d66c0f9",
-  measurementId: "G-M1LVSYH7JM"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 // Inisialisasi Firebase
