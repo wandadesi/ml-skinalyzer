@@ -12,12 +12,17 @@ load_dotenv()
 
 # Inisialisasi Firebase Admin hanya sekali
 if not firebase_admin._apps:
-    cred_path = os.getenv("FIREBASE_CRED_PATH")
-    if not cred_path:
-        raise ValueError("FIREBASE_CRED_PATH is not set in .env file")
+    cred = os.getenv("FIREBASE_CRED")
+    if not cred:
+        raise ValueError("FIREBASE_CRED is not set in .env file")
 
-    cred = credentials.Certificate(cred_path)
+    cred_dict = json.loads(cred)
+
+    cred_dict["private_key"] = cred_dict["private_key"].replace("\\n", "\n")
+
+    cred = credentials.Certificate(cred_dict)
     firebase_admin.initialize_app(cred)
+
 
 # Firestore client
 db = firestore.client()
