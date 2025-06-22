@@ -1,0 +1,17 @@
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+# Ignore virtual environment
+venv/
+
+# Ignore model file, binary, shared libs
+*.pkl
+*.dll
+*.lib
+*.pyd
+
+# Optional: Jupyter or system file
+.ipynb_checkpoints/
+.DS_Store
+.env
