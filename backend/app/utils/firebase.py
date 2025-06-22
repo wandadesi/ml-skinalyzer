@@ -5,7 +5,7 @@ from firebase_admin import auth, credentials, firestore
 from flask import request
 from firebase_admin import firestore
 from firebase_admin.firestore import SERVER_TIMESTAMP
-
+import json
 
 # Load environment variables
 load_dotenv()
