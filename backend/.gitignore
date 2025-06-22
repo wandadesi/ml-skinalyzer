@@ -6,7 +6,6 @@ __pycache__/
 venv/
 
 # Ignore model file, binary, shared libs
-*.pkl
 *.dll
 *.lib
 *.pyd
