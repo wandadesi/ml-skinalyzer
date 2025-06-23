@@ -1,10 +1,22 @@
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Analyze from '../components/Analyze';
 import Navbar from '../components/Navbar';
 import { useState } from 'react';
 
+type Product = {
+  brand: string;
+  name: string;
+  price: string;
+  size: string;
+  category: string;
+  image_url: string;
+  processed_desc: string;
+  processed_how_to_use: string;
+  Similarity_Score: number;
+};
+
 export default function ResultPage() {
-  const navigate = useNavigate();
+ 
   const location = useLocation();
 
   const image = location.state?.image || '';
@@ -92,7 +104,7 @@ export default function ResultPage() {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
-          {sortedResults.map((product: any, index: number) => {
+          {sortedResults.map((product: Product, index: number) => {
             const desc = product.processed_desc || '';
             const isLong = desc.length > 15;
             const isExpanded = expandedStates[index];
