@@ -29,8 +29,12 @@ const Login = () => {
 
       window.dispatchEvent(new Event("user-changed"));
       window.location.href = "/Page1";
-    } catch (err: any) {
-      setError("Login gagal: " + (err.message || ""));
+   } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError("Login gagal: " + err.message);
+      } else {
+        setError("Login gagal: Terjadi kesalahan.");
+      }
     } finally {
       setIsLoading(false); // ⬅️ Selesai loading
     }
