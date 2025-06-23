@@ -1,6 +1,6 @@
 // src/pages/HasilFoto.tsx
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import  {useState}  from 'react';
 import Navbar from '../components/Navbar';
 
 interface LocationState {
@@ -54,8 +54,13 @@ const HasilFoto = () => {
           ir_results: result.ir_results || [],
         },
       });
-    } catch (err: any) {
-      setError(err.message || 'An error occurred');
+    } catch (err: unknown) {
+  if (err instanceof Error) {
+    setError(err.message);
+  } else {
+    setError('An unexpected error occurred');
+  }
+
     } finally {
       setLoading(false);
     }
