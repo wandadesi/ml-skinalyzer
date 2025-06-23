@@ -16,13 +16,15 @@ if not firebase_admin._apps:
     if not cred:
         raise ValueError("FIREBASE_CRED is not set in .env file")
 
+     # Ubah string JSON menjadi dictionary
     cred_dict = json.loads(cred)
 
+    # Replace \n dengan newline agar kunci tidak error
     cred_dict["private_key"] = cred_dict["private_key"].replace("\\n", "\n")
 
+    # Gunakan credential dari dict
     cred = credentials.Certificate(cred_dict)
     firebase_admin.initialize_app(cred)
-
 
 # Firestore client
 db = firestore.client()
