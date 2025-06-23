@@ -17,8 +17,12 @@ const ForgotPassword: React.FC = () => {
     try {
       await sendPasswordResetEmail(auth, email);
       setMessage("Link reset password telah dikirim ke email Anda.");
-    } catch (err: any) {
-      setError("Gagal mengirim reset email: " + (err.message || ""));
+   } catch (err: unknown) {
+  if (err instanceof Error) {
+    setError("Gagal mengirim reset email: " + err.message);
+  } else {
+    setError("Terjadi kesalahan yang tidak diketahui.");
+  }
     } finally {
       setLoading(false);
     }
