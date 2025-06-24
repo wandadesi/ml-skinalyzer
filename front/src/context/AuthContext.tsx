@@ -1,36 +1,38 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
+import { onAuthStateChanged, type User } from "firebase/auth";
+import { auth } from "../firebase"; 
 
+// Tipe data context
 type AuthContextType = {
   userId: string | null;
-  login: (userId: string) => void;
+  user: User | null;
   logout: () => void;
 };
 
+// Buat context
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Provider utama
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [userId, setUserId] = useState<string | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const storedUserId = localStorage.getItem("user_id");
-    if (storedUserId) {
-      setUserId(storedUserId);
-    }
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      console.log("Auth state changed:", firebaseUser?.uid ?? "not logged in");
+      setUser(firebaseUser);
+    });
+
+    return () => unsubscribe();
   }, []);
 
-  const login = (id: string) => {
-    setUserId(id);
-    localStorage.setItem("user_id", id);
-  };
-
   const logout = () => {
-    setUserId(null);
-    localStorage.removeItem("user_id");
+    auth.signOut();
+    setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ userId, login, logout }}>
+    <AuthContext.Provider value={{ userId: user?.uid ?? null, user, logout }}>
       {children}
     </AuthContext.Provider>
   );
